@@ -1,3 +1,11 @@
+#---
+# Excerpted from "Agile Web Development with Rails",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material, 
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose. 
+# Visit http://www.pragmaticprogrammer.com/titles/rails4 for more book information.
+#---
 require 'test_helper'
 
 class CartsControllerTest < ActionController::TestCase
@@ -18,7 +26,7 @@ class CartsControllerTest < ActionController::TestCase
 
   test "should create cart" do
     assert_difference('Cart.count') do
-      post :create, cart: {  }
+      post :create, cart: @cart.attributes
     end
 
     assert_redirected_to cart_path(assigns(:cart))
@@ -35,15 +43,17 @@ class CartsControllerTest < ActionController::TestCase
   end
 
   test "should update cart" do
-    put :update, id: @cart, cart: {  }
+    put :update, id: @cart, cart: @cart.attributes
     assert_redirected_to cart_path(assigns(:cart))
   end
 
   test "should destroy cart" do
     assert_difference('Cart.count', -1) do
+      session[:cart_id] = @cart.id
       delete :destroy, id: @cart
     end
 
-    assert_redirected_to carts_path
+    assert_redirected_to store_path
   end
 end
+
